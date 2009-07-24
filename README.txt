@@ -1,26 +1,60 @@
 = pongo
 
-* FIX (url)
+* http://github.com/technohippy/Pongo/
 
 == DESCRIPTION:
 
-FIX (describe your package)
+Ruby port of APE (Actionscript Physics Engine)
 
 == FEATURES/PROBLEMS:
 
-* FIX (list of features or problems)
+* CircleParticles
+* RectangleParticles
+* WheelParticles
+* SpringConstraints
+* Grouping
+* Collision
+
+see also: http://www.cove.org/ape/index.htm
 
 == SYNOPSIS:
 
-  FIX (code sample of usage)
+  require 'pongo'
+  require 'pongo/renderer/shoes_renderer'
+  require 'pongo/logger/shoes_logger'
+
+  include Pongo
+  Shoes.app :width => 500, :height => 350 do
+    APEngine.renderer = Renderer::ShoesRenderer.new(self)
+    APEngine.logger = Logger::ShoesLogger.new(self)
+    APEngine.setup
+    APEngine.add_force VectorForce.new(false, 0, 2)
+
+    default_group = Group.new
+    default_group.collide_internal = true
+
+    ball = CircleParticle.new(245, 100, 10)
+    default_group.add_particle(ball)
+
+    ground = RectangleParticle.new(250, 250, 300, 50, 0, true)
+    ground.always_redraw!
+    default_group.add_particle(ground)
+
+    APEngine.add_group(default_group)
+
+    animate(60) do |anim|
+      APEngine.step
+      APEngine.draw
+    end
+  end
 
 == REQUIREMENTS:
 
-* FIX (list of requirements)
+* Shoes2 ( http://shoooes.net/ )
 
 == INSTALL:
 
-* FIX (sudo gem install, anything else)
+* sudo gem install pongo
 
 == LICENSE:
 
