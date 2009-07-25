@@ -1,37 +1,49 @@
 module Pongo
+  # The main engine class. 
   class APEngine
     class <<self
-      attr_accessor :forces, :groups, :tile_step, :damping, :container, :constraint_cycle, :constraint_collision_cycles, :logger
+      attr_accessor :forces, :groups, :tile_step, :damping, :container, 
+        :constraint_cycles, :constraint_collision_cycles, :logger
+
       alias renderer container
       alias renderer= container=
 
+      # Initializes the engine. You must call this method prior to adding any 
+      # particles or constraints.
       def setup(dt=0.25)
         @time_step = dt * dt
         @groups = []
         @forces = []
-        @damping = 1
-        @constraint_cycles = 0
-        @constraint_collision_cycles = 1
+        self.damping = 1
+        self.constraint_cycles = 0
+        self.constraint_collision_cycles = 1
       end
 
+      # Adds a force to all particles in the system. The forces added to the APEngine
+      # class are persistent - once a force is added it is continually applied each
+      # APEngine.step() cycle.
       def add_force(force)
         @forces << force
       end
 
+      # Removes a force from the engine.
       def remove_force(force)
         @forces.remove(force)
       end
 
+      # Removes all forces from the engine.
       def remove_all_forces
-        @forces.clear!
+        @forces.clear
       end
 
+      # Adds a Group to the engine.
       def add_group(group)
+        @groups << group
         group.is_parented = true
         group.init
-        @groups << group
       end
 
+      # Removes a Group from the engine.
       def remove_group(group)
         if @groups.delete(group)
           group.is_parented = false
@@ -39,26 +51,25 @@ module Pongo
         end
       end
 
+      # The main step function of the engine. This method should be called
+      # continously to advance the simulation. The faster this method is 
+      # called, the faster the simulation will run. Usually you would call
+      # this in your main program loop. 
       def step
         integrate
-        @constraint_cycles.times do
+        constraint_cycles.times do
           satisfy_constraints
         end
-        @constraint_collision_cycles.times do
+        constraint_collision_cycles.times do
           satisfy_constraints
           check_collisions
         end
       end
 
+      # Calling this method will in turn call each Group's paint() method.
+      # Generally you would call this method after stepping the engine in
+      # the main program cycle.
       def draw
-APEngine.renderer.shoes.fill('#FFF')
-APEngine.renderer.shoes.rect(
-  :left => -10, 
-  :top => -10, 
-  :width => 600, #APEngine.renderer.shoes.witdh + 20, 
-  :height => 500 #APEngine.renderer.shoes.height + 20
-)
-APEngine.renderer.shoes.fill('#F00')
         @groups.each {|g| g.draw}
       end
       alias paint draw
@@ -76,9 +87,7 @@ APEngine.renderer.shoes.fill('#F00')
       end
 
       def log(message, level=:info)
-        if @logger
-          @logger.send(level, message)
-        end
+        @logger.send(level, message) if @logger
       end
     end
   end

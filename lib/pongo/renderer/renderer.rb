@@ -26,6 +26,14 @@ module Pongo
       end
       def draw_circle(item); end
       def draw_rectangle(item); end
+
+      def with(options, &block)
+        @shoes.transform(options[:transform]) if options[:transform]
+        @shoes.rotate(options[:rotate]) if options[:rotate]
+        block.call(@shoes)
+        @shoes.rotate(-options[:rotate]) if options[:rotate]
+        @shoes.transform(:corner) if options[:transform]
+      end
     end
   end
 end

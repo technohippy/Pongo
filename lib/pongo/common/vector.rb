@@ -98,7 +98,7 @@ module Pongo
 
     def normalize
       if @x == 0 and @y == 0
-        mult(1000.0)
+        mult(10000.0)
       else
         mult(1.0 / magnitude)
       end
@@ -112,7 +112,7 @@ module Pongo
     end
 
     def to_s
-      "#{@x} : #{y}"
+      "#{@x} : #{@y}"
     end
   end
 end

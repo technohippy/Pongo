@@ -8,6 +8,7 @@ module Pongo
       # the multisampling state of the two particles.
       def test(obj_a, obj_b)
         return if obj_a.fixed? and obj_b.fixed?
+return if obj_a == obj_b # TODO: add by ando
 
         if obj_a.multisample == 0 and obj_b.multisample == 0
           norm_vs_norm(obj_a, obj_b)
@@ -96,41 +97,43 @@ module Pongo
       # Tests the collision between two RectangleParticles (aka OBBs). If there is a 
       # collision it determines its axis and depth, and then passes it off to the 
       # CollisionResolver for handling.
-      def test_obb_vs_obb(ra, rb)
+      def test_obb_vs_obb(rect_a, rect_b)
         @coll_depth = Numeric::POSITIVE_INFINITY
         2.times do |i|
-          axis_a = ra.axes[i]
-          depth_a = test_intervals(ra.projection(axis_a), rb.projection(axis_a))
+          axis_a = rect_a.axes[i]
+          depth_a = test_intervals(rect_a.projection(axis_a), rect_b.projection(axis_a))
           return false if depth_a == 0
 
-          axis_b = rb.axes[i]
-          depth_b = test_intervals(ra.projection(axis_b), rb.projection(axis_b))
+          axis_b = rect_b.axes[i]
+          depth_b = test_intervals(rect_a.projection(axis_b), rect_b.projection(axis_b))
           return false if depth_b == 0
 
           abs_a = depth_a.abs
           abs_b = depth_b.abs
 
           if abs_a < @coll_depth.abs or abs_b < @coll_depth.abs
-            @coll_normal, @coll_depth = abs_a < abs_b ? [axis_a, depth_a] : [axis_b, depth_b]
+            altb = abs_a < abs_b
+            @coll_normal = altb ? axis_a : axis_b
+            @coll_depth = altb ? depth_a : depth_b
           end
         end
 
-        @cpa = ra
-        @cpb = rb
+        @cpa = rect_a
+        @cpb = rect_b
         true
       end
 
       # Tests the collision between a RectangleParticle (aka an OBB) and a 
       # CircleParticle. If there is a collision it determines its axis and depth, and 
       # then passes it off to the CollisionResolver.
-      def test_obb_vs_circle(ra, ca)
+      def test_obb_vs_circle(rect_a, cir_a)
         @coll_depth = Numeric::POSITIVE_INFINITY
         depths = []
 
         # first go through the axes of the rectangle
         2.times do |i|
-          box_axis = ra.axes[i]
-          depth = test_intervals(ra.projection(box_axis), ca.projection(box_axis))
+          box_axis = rect_a.axes[i]
+          depth = test_intervals(rect_a.projection(box_axis), cir_a.projection(box_axis))
           return false if depth == 0
 
           if depth.abs < @coll_depth.abs
@@ -141,12 +144,12 @@ module Pongo
         end
 
         # determine if the circle's center is in a vertex region
-        r = ca.radius
+        r = cir_a.radius
         if depths[0].abs < r and depths[1].abs < r
-          vertex = closest_vertex_on_obb(ca.samp, ra)
+          vertex = closest_vertex_on_obb(cir_a.samp, rect_a)
 
           # get the distance from the closest vertex on rect to circle center
-          @coll_normal = vertex - ca.samp
+          @coll_normal = vertex - cir_a.samp
           mag = @coll_normal.magnitude
           @coll_depth = r - mag
 
@@ -154,33 +157,33 @@ module Pongo
             # there is a collision in one of the vertex regions
             @coll_normal.div!(mag)
           else
-            # ra is in vertex region, but is not colliding
+            # rect_a is in vertex region, but is not colliding
             return false
           end
         end
-        @cpa = ra
-        @cpb = ca
+        @cpa = rect_a
+        @cpb = cir_a
         true
       end
 
       # Tests the collision between two CircleParticles. If there is a collision it 
       # determines its axis and depth, and then passes it off to the CollisionResolver
       # for handling.
-      def test_circle_vs_circle(ca, cb)
-        depth_x = test_intervals(ca.interval_x, cb.interval_x)
+      def test_circle_vs_circle(cir_a, cir_b)
+        depth_x = test_intervals(cir_a.interval_x, cir_b.interval_x)
         return false if depth_x == 0
 
-        depth_y = test_intervals(ca.interval_y, cb.interval_y)
+        depth_y = test_intervals(cir_a.interval_y, cir_b.interval_y)
         return false if depth_y == 0
 
-        @coll_normal = ca.samp - cb.samp
+        @coll_normal = cir_a.samp - cir_b.samp
         mag = @coll_normal.magnitude
-        @coll_depth = ca.radius + cb.radius - mag
+        @coll_depth = cir_a.radius + cir_b.radius - mag
 
         if @coll_depth > 0
           @coll_normal.div!(mag)
-          @cpa = ca
-          @cpb = cb
+          @cpa = cir_a
+          @cpb = cir_b
           true
         else
           false
@@ -198,18 +201,18 @@ module Pongo
         len_a.abs < len_b.abs ? len_a : len_b
       end
 
-      # Returns the location of the closest vertex on r to point p
-      def closest_vertex_on_obb(p, r)
-        d = p - r.samp
-        q = r.samp.dup
+      # Returns the location of the closest vertex on rect to point
+      def closest_vertex_on_obb(point, rect)
+        d = point - rect.samp
+        q = rect.samp.dup
 
         2.times do |i|
-          dist = d.dot(r.axes[i])
-          if    dist >= 0; dist = r.extents[i] 
-          elsif dist <  0; dist = -r.extents[i]
+          dist = d.dot(rect.axes[i])
+          if    dist >= 0; dist = rect.extents[i] 
+          elsif dist <  0; dist = -rect.extents[i]
           end
 
-          q.plus!(r.axes[i] * dist)
+          q.plus!(rect.axes[i] * dist)
         end
         q
       end
