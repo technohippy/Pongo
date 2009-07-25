@@ -7,8 +7,12 @@ module Pongo
           cleanup_circle(item)
         when RectangleParticle
           cleanup_rectangle(item)
+        when WheelParticle
+          #TODO: not yet
+        when SpringConstraint
+          #TODO: not yet
         else
-          raise ArgumentError.new(item.class.name)
+          raise UnknownItemError.new(item.class.name)
         end
       end
       def cleanup_circle(item); end
@@ -20,8 +24,12 @@ module Pongo
           draw_circle(item)
         when RectangleParticle
           draw_rectangle(item)
+        when WheelParticle
+          #TODO: not yet
+        when SpringConstraint
+          #TODO: not yet
         else
-          raise ArgumentError.new(item.class.name)
+          raise UnknownItemError.new(item.class.name)
         end
       end
       def draw_circle(item); end

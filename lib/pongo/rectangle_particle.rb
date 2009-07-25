@@ -29,10 +29,12 @@ module Pongo
     def angle
       self.radian * MathUtil::ONE_EIGHTY_OVER_PI
     end
+    alias degree angle
 
     def angle=(deg)
       self.radian = deg * MathUtil::PI_OVER_ONE_EIGHTY
     end
+    alias degree= angle=
 
     def width=(w)
       @extents[0] = w / 2

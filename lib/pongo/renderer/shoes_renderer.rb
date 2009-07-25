@@ -26,7 +26,7 @@ module Pongo
 
       def draw_rectangle(item)
         item.user_data[:shape].remove if item.user_data[:shape]
-        with(:transform => :center, :rotate => item.radian) do
+        with(:transform => :center, :rotate => -item.angle) do
           item.user_data[:shape] = 
             @shoes.rect(
               :left => (item.px - item.width/2), 

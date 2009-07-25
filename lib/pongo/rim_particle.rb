@@ -1,10 +1,17 @@
+require 'pongo/common/math_util'
+
 module Pongo
   class RimParticle
     attr_accessor :curr, :prev, :wr, :angular_velocity, :speed, :max_torque
 
+    # The RimParticle is really just a second component of the wheel model.
+    # The rim particle is simulated in a coordsystem relative to the wheel's 
+    # center, not in worldspace.
+    # 
+    # Origins of this code are from Raigan Burns, Metanet Software
     def initialize(r, mt)
-      @curr = Vector.new
-      @prev = Vector.new
+      @curr = Vector.new(r, 0)
+      @prev = Vector.new(0, 0)
       @speed = 0
       @angular_velocity = 0
       @max_torque = mt
@@ -12,7 +19,7 @@ module Pongo
     end
 
     def update(dt)
-      @speed = Math.max(-@max_torque, Math.min(@max_torque, @speed + @angular_velocity))
+      @speed = MathUtil.max(-@max_torque, MathUtil.min(@max_torque, @speed + @angular_velocity))
 
       # apply torque
       # this is the tangent vector at the rim particle
@@ -36,7 +43,7 @@ module Pongo
       @curr.y += APEngine.damping * (py - oy)
 
       # hold the rim particle in place
-      clen = Math.sqrt(@curr.x * @curr.x + @curr.y * @curr.y)
+      clen = @curr.magnitude
       diff = (clen - wr) / clen
 
       @curr.x -= @curr.x * diff

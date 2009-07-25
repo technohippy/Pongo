@@ -99,11 +99,11 @@ module Pongo
     end
 
     def draw
-      raise NotImplementedError
+      #raise NotImplementedError
     end
 
     def set_display(d, offset_x=0, offset_y=0, rotation=0)
-      raise NotImplementedError
+      #raise NotImplementedError
     end
 
     def resolve
@@ -119,7 +119,7 @@ module Pongo
     end
 
     def init_display
-      raise NotImplementedError
+      #raise NotImplementedError
     end
 
     def delta

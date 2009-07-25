@@ -18,6 +18,7 @@ module Pongo
         self.constraint_cycles = 0
         self.constraint_collision_cycles = 1
       end
+      alias init setup
 
       # Adds a force to all particles in the system. The forces added to the APEngine
       # class are persistent - once a force is added it is continually applied each

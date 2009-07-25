@@ -16,6 +16,10 @@ module Pongo
       @composites.each {|c| c.init}
     end
 
+    def collide_internal!
+      @collide_internal = true
+    end
+
     def add_composite(c)
       @composites << c
       c.is_parented = true

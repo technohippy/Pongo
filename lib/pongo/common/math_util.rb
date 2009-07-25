@@ -15,5 +15,13 @@ module Pongo
     def sign(val)
       val < 0 ? -1 : 1
     end
+
+    def max(v1, v2)
+      v1 < v2 ? v2 : v1
+    end
+
+    def min(v1, v2)
+      v1 < v2 ? v1 : v2
+    end
   end
 end

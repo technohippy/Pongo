@@ -27,40 +27,40 @@ module Pongo
       @x * v.y - @y * v.x
     end
 
-    def plus(v)
+    def +(v)
       Vector.new(@x + v.x, @y + v.y)
     end
-    alias + plus
+    alias plus +
 
-    def plus_equals(v)
+    def plus!(v)
       @x += v.x
       @y += v.y
       self
     end
-    alias plus! plus_equals
+    alias plus_equals plus!
 
-    def minus(v)
+    def -(v)
       Vector.new(@x - v.x, @y - v.y)
     end
-    alias - minus
+    alias minus -
 
-    def minus_equals(v)
+    def minus!(v)
       @x -= v.x
       @y -= v.y
       self
     end
-    alias minus! minus_equals
+    alias minus_equals minus!
 
     def mult(s)
       Vector.new(@x * s, @y * s)
     end
 
-    def mult_equals(s)
+    def mult!(s)
       @x *= s
       @y *= s
       self
     end
-    alias mult! mult_equals
+    alias mult_equals mult!
 
     def times(v)
       Vector.new(x * v.x, y * v.y)
@@ -74,19 +74,19 @@ module Pongo
       end
     end
 
-    def div(s)
+    def /(s)
       s = 0.0001 if s == 0
       Vector.new(@x / s, @y / s)
     end
-    alias / div
+    alias div /
 
-    def div_equals(s)
+    def div!(s)
       s = 0.0001 if s == 0
       @x /= s
       @y /= s
       self
     end
-    alias div! div_equals
+    alias div_equals div!
 
     def magnitude
       Math.sqrt(@x * @x + @y * @y)

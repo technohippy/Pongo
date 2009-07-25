@@ -3,13 +3,14 @@ module Pongo
   class WheelParticle < CircleParticle
     attr_accessor :rp, :tan, :norm_slip, :orientation, :traction
 
-    def initialize(x, y, radius, fixed=false, mass=1, elasticity=0.3, friction=0, traction=1)
-      super(x, y, radius, fixed, mass, elastcity, friction)
+    def initialize(x, y, radius, options={})
+      options = {:rotation => 0, :fixed => false, :mass => 1, :elasticity => 0.3, :friction => 0, :traction => 1}.update(options)
+      super(x, y, radius, options)
       @tan = Vector.new
       @norm_slip = Vector.new
-      @rp = RimParticle(radius, 2)
+      @rp = RimParticle.new(radius, 2)
 
-      self.traction = traction
+      self.traction = options[:traction]
       @orientation = Vector.new
     end
 
@@ -51,6 +52,7 @@ module Pongo
       @traction = 1 - t
     end
 
+=begin
     def draw
       raise NotImplementedError
     end
@@ -58,6 +60,7 @@ module Pongo
     def init
       raise NotImplementedError
     end
+=end
 
     def radian
       @orientation.set_to(rp.curr)

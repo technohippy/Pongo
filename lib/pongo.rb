@@ -29,4 +29,5 @@ require 'pongo/common/vector'
 module Pongo
   VERSION = '0.1.0'
   class SubclassResponsibilityError < StandardError; end
+  class UnknownItemError < StandardError; end
 end
