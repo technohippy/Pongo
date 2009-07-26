@@ -31,7 +31,7 @@ class Motor < Pongo::Composite
     self.radius = radius
 
     # run it once to make sure the rim particles are in the right place
-    run
+    #run
   end
 
   def power=(p)
@@ -56,17 +56,4 @@ class Motor < Pongo::Composite
     @rim_c.px = -@radius * Math.sin(theta) + @wheel.px
     @rim_c.py =  @radius * Math.cos(theta) + @wheel.py
   end
-
-=begin
-  # doing some custom painting here. contrast this with the custom painting of the
-  # legs. in this case we draw the shape in the init method, and then just move/rotate
-  # it in the paint method. one important thing here - the initial drawing happens in
-  # object space (i.e., x = 0, y = 0) not world space. Another option would be to
-  # just draw everything dynamically using the wheel and rim point locations.
-  def init
-  end
-
-  def paint
-  end
-=end
 end

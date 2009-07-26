@@ -7,8 +7,8 @@ module Pongo
       # Tests the collision between two objects. This initial test determines
       # the multisampling state of the two particles.
       def test(obj_a, obj_b)
+        return if obj_a == obj_b # TODO: added by ando
         return if obj_a.fixed? and obj_b.fixed?
-return if obj_a == obj_b # TODO: add by ando
 
         if obj_a.multisample == 0 and obj_b.multisample == 0
           norm_vs_norm(obj_a, obj_b)
