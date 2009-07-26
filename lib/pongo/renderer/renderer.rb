@@ -8,15 +8,17 @@ module Pongo
         when RectangleParticle
           cleanup_rectangle(item)
         when WheelParticle
-          #TODO: not yet
+          cleanup_wheel(item)
         when SpringConstraint
-          #TODO: not yet
+          cleanup_spring(item)
         else
           raise UnknownItemError.new(item.class.name)
         end
       end
       def cleanup_circle(item); end
       def cleanup_rectangle(item); end
+      def cleanup_wheel(item); end
+      def cleanup_spring(item); end
 
       def draw(item)
         case item
@@ -25,15 +27,17 @@ module Pongo
         when RectangleParticle
           draw_rectangle(item)
         when WheelParticle
-          #TODO: not yet
+          draw_wheel(item)
         when SpringConstraint
-          #TODO: not yet
+          draw_spring(item)
         else
           raise UnknownItemError.new(item.class.name)
         end
       end
       def draw_circle(item); end
       def draw_rectangle(item); end
+      def draw_wheel(item); end
+      def draw_spring(item); end
 
       def with(options, &block)
         @shoes.transform(options[:transform]) if options[:transform]

@@ -23,6 +23,7 @@ module Pongo
           )
         end
       end
+      alias draw_wheel draw_circle
 
       def draw_rectangle(item)
         item.user_data[:shape].remove if item.user_data[:shape]
@@ -35,6 +36,11 @@ module Pongo
               :height => item.height
             )
           end
+      end
+
+      def draw_spring(item)
+        item.user_data[:shape].remove if item.user_data[:shape]
+        item.user_data[:shape] = @shoes.line(item.p1.px, item.p1.py, item.p2.px, item.p2.py)
       end
     end
   end

@@ -11,6 +11,7 @@ module Pongo
     attr_accessor :stiffness
 
     def initialize(stiffness)
+      super()
       @stiffness = stiffness
       set_style
     end

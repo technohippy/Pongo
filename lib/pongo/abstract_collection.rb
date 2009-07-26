@@ -37,7 +37,7 @@ module Pongo
 
     def draw
       particles.each {|p| p.draw if p.always_redraw? or not p.fixed?}
-      constraints.each {|c| c.draw if p.always_redraw? or not p.fixed?}
+      constraints.each {|c| c.draw if c.always_redraw? or not c.fixed?}
     end
     alias paint draw
 

@@ -98,14 +98,6 @@ module Pongo
       draw
     end
 
-    def draw
-      #raise NotImplementedError
-    end
-
-    def set_display(d, offset_x=0, offset_y=0, rotation=0)
-      #raise NotImplementedError
-    end
-
     def resolve
       return if fixed?
 

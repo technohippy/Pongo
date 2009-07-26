@@ -9,6 +9,7 @@ module Pongo
     attr_accessor :delta
 
     def initialize
+      super
       @delta = Vector.new
     end
 

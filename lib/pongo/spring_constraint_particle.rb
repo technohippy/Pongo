@@ -8,7 +8,7 @@ module Pongo
     attr_accessor :parent, :p1, :p2, :avg_velocity, :lamda, :scale_to_length, :rca, :rcb, :s, :rect_scale, :rect_height, :fixed_end_limit
 
     def initialize(p1, p2, p, rect_height, rect_scale, scale_to_length)
-      super(0,0,0,0,0,false)
+      super(0, 0, 0, 0, :fixed => false)
 
       @p1 = p1
       @p2 = p2
