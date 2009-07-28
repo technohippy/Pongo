@@ -1,5 +1,5 @@
-$: << File.dirname(__FILE__)
-$: << File.dirname(__FILE__) + '/../lib'
+$: << File.dirname(__FILE__) + '/..'
+$: << File.dirname(__FILE__) + '/../../lib'
 require 'pongo'
 require 'pongo/renderer/shoes_renderer'
 require 'pongo/logger/shoes_logger'
@@ -14,9 +14,6 @@ Shoes.app :width => 1200, :height => 350 do
   APEngine.damping = 0.99
   APEngine.constraint_collision_cycles = 10
   APEngine.add_force VectorForce.new(false, 0, 2)
-
-  default_group = Group.new
-  default_group.collide_internal = true
 
   @robot = Robot.new(1000, 260, 1.6, 0.02)
 
@@ -82,7 +79,7 @@ Shoes.app :width => 1200, :height => 350 do
     @robot.toggle_direction
   end
 
-  animate(60) do |anim|
+  animate(24) do |anim|
     @robot.run
     APEngine.step
     APEngine.draw

@@ -1,4 +1,4 @@
-$: << File.dirname(__FILE__) + '/../lib'
+$: << File.dirname(__FILE__) + '/../../lib'
 require 'pongo'
 require 'pongo/renderer/shoes_renderer'
 require 'pongo/logger/shoes_logger'
