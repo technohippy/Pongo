@@ -1,4 +1,4 @@
-= pongo
+= Pongo
 
 * http://github.com/technohippy/Pongo/
 
@@ -16,6 +16,11 @@ Ruby port of APE (Actionscript Physics Engine)
 * Collision
 
 see also: http://www.cove.org/ape/index.htm
+
+== EXECUTE SAMPLES:
+
+* ruby sample/tk/robotdemo.rb
+* shoes sample/shoes/robotdemo.rb
 
 == SYNOPSIS:
 
