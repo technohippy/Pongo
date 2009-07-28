@@ -20,6 +20,19 @@ module Pongo
       @collide_internal = true
     end
 
+    def <<(item)
+      case item
+      when Composite
+        add_composite(item)
+      when Group
+        add_collidable(item)
+      when Array
+        add_collidable_list(item)
+      else
+        super
+      end
+    end
+
     def add_composite(c)
       @composites << c
       c.is_parented = true

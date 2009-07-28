@@ -26,6 +26,7 @@ module Pongo
       def add_force(force)
         @forces << force
       end
+      alias gravity= add_force
 
       # Removes a force from the engine.
       def remove_force(force)
@@ -35,6 +36,12 @@ module Pongo
       # Removes all forces from the engine.
       def remove_all_forces
         @forces.clear
+      end
+
+      def build_group(collide_internal=false)
+        group = Group.new(collide_internal)
+        @groups << group
+        group
       end
 
       # Adds a Group to the engine.

@@ -8,6 +8,15 @@ module Pongo
       self.constraints = []
     end
 
+    def <<(item)
+      case item
+      when AbstractParticle
+        add_particle(item)
+      when AbstractConstraint
+        add_constraint(item)
+      end
+    end
+
     def add_particle(particle)
       particle.init if parented?
       particles << particle

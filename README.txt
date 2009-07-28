@@ -60,7 +60,7 @@ see also: http://www.cove.org/ape/index.htm
 
 (The MIT License)
 
-Copyright (c) 2009 FIX
+Copyright (c) 2009 Ando Yasushi
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

@@ -114,5 +114,20 @@ module Pongo
     def to_s
       "#{@x} : #{@y}"
     end
+
+    def rotate(rad)
+      Vector.new(
+        @x * Math.cos(rad) - @y * Math.sin(rad),
+        @x * Math.sin(rad) + @y * Math.cos(rad)
+      )
+    end
+
+    def rotate!(rad)
+      @x, @y = [
+        @x * Math.cos(rad) - @y * Math.sin(rad),
+        @x * Math.sin(rad) + @y * Math.cos(rad)
+      ]
+      self
+    end
   end
 end

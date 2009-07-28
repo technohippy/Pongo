@@ -94,7 +94,7 @@ module Pongo
       wheel_surface_velocity = @tan * @rp.speed
 
       # the velocity of the wheel's surface relative to the ground
-      combined_velocity = @velocity.plus!(wheel_surface_velicity)
+      combined_velocity = @velocity.plus!(wheel_surface_velocity)
 
       # the wheel's comb velocity projected onto the contact normal
       cp = combined_velocity.cross(n)
