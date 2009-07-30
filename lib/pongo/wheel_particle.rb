@@ -4,7 +4,7 @@ module Pongo
     attr_accessor :rp, :tan, :norm_slip, :orientation, :traction
 
     def initialize(x, y, radius, options={})
-      options = {:rotation => 0, :fixed => false, :mass => 1, :elasticity => 0.3, :friction => 0, :traction => 1}.update(options)
+      options = {:fixed => false, :mass => 1, :elasticity => 0.3, :friction => 0, :traction => 1}.update(options)
       super(x, y, radius, options)
       @tan = Vector.new
       @norm_slip = Vector.new

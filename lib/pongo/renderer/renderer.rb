@@ -21,6 +21,7 @@ module Pongo
       def cleanup_spring(item); end
 
       def draw(item)
+        return unless item.visible?
         case item
         when CircleParticle
           draw_circle(item)

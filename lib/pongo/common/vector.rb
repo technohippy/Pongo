@@ -2,12 +2,12 @@ module Pongo
   class Vector
     attr_accessor :x, :y
     
-    def initialize(px=0, py=0)
+    def initialize(px=0.0, py=0.0)
       set_to(px, py)
     end
 
     def set_to(px, py=nil)
-      @x, @y = py ? [px, py] : [px.x, px.y]
+      @x, @y = py ? [px.to_f, py.to_f] : [px.x, px.y]
       self
     end
 

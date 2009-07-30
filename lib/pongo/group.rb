@@ -59,7 +59,8 @@ module Pongo
       @collision_list.delete(g)
     end
 
-    def add_collidable_list(list)
+    def add_collidable_list(*list)
+      list = list.first if list.first.is_a?(Array)
       list.each {|g| @collision_list << g}
     end
 

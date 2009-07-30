@@ -74,13 +74,13 @@ module Pongo
 
     def collidable_particles(constraint=nil)
       particles.select do |p| 
-        p.collidable? and (constraint.nil? or not constraint.connected_to?(p))
+        p.collidable? and (constraint.nil? or not constraint.is_connected_to?(p))
       end
     end
 
     def collidable_constraints(particle=nil)
       constraints.select do |c| 
-        c.collidable? and (particle.nil? or not c.connectted_to?(particle))
+        c.collidable? and (particle.nil? or not c.is_connected_to?(particle))
       end
     end
 

@@ -12,6 +12,14 @@ module Pongo
       @user_data = {}
     end
 
+    def visible?
+      @visible
+    end
+
+    def visible!
+      @visible = true
+    end
+
     def renderer
       @renderer || APEngine.renderer
     end

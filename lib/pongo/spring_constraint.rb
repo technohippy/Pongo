@@ -6,13 +6,14 @@ module Pongo
   class SpringConstraint < AbstractConstraint
     attr_accessor :p1, :p2, :rest_length, :collidable, :scp
 
-    def initialize(p1, p2, stiffness=0.5, collidable=false, rect_height=1, rect_scale=1, scale_to_length=false)
-      super(stiffness)
+    def initialize(p1, p2, options={})
+      options = {:stiffness => 0.5, :collidable => false, :rect_height => 1, :rect_scale => 1, :scale_to_length => false}.update(options)
+      super(options[:stiffness])
       @p1 = p1
       @p2 = p2
       check_particles_location
       @rest_length = curr_length
-      set_collidable(collidable, rect_height, rect_scale, scale_to_length)
+      set_collidable(options[:collidable], options[:rect_height], options[:rect_scale], options[:scale_to_length])
     end
 
     def radian
