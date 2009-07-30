@@ -3,7 +3,6 @@ $: << File.dirname(__FILE__) + '/../../lib'
 require 'pongo'
 require 'pongo/renderer/shoes_renderer'
 require 'pongo/logger/shoes_logger'
-
 require 'robodemo/robot'
 
 include Pongo
@@ -80,8 +79,13 @@ Shoes.app :width => 1200, :height => 350 do
   end
 
   animate(24) do |anim|
-    @robot.run
-    APEngine.step
-    APEngine.draw
+    begin
+      @robot.run
+      APEngine.step
+      APEngine.draw
+    rescue
+      APEngine.log($!.message + "\n" + $!.backtrace.join("\n"))
+      raise $!
+    end
   end
 end

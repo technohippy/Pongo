@@ -8,7 +8,7 @@ module Pongo
     attr_accessor :parent, :p1, :p2, :avg_velocity, :lamda, :scale_to_length, :rca, :rcb, :s, :rect_scale, :rect_height, :fixed_end_limit
 
     def initialize(p1, p2, p, rect_height, rect_scale, scale_to_length)
-      super(0, 0, 0, 0, :fixed => false)
+      super(0.0, 0.0, 0.0, 0.0, :fixed => false)
 
       @p1 = p1
       @p2 = p2
@@ -21,7 +21,7 @@ module Pongo
       @rect_height = rect_height
       @scale_to_length = scale_to_length
 
-      @fixed_end_limit = 0
+      @fixed_end_limit = 0.0
       @rca = Vector.new
       @rcb = Vector.new
     end
@@ -31,17 +31,17 @@ module Pongo
     end
 
     def elasticity
-      (@p1.elasticity * @p2.elasticity) / 2
+      (@p1.elasticity * @p2.elasticity) / 2.0
     end
 
     def friction
-      (@p1.friction * @p2.friction) / 2
+      (@p1.friction * @p2.friction) / 2.0
     end
 
     def velocity
       p1v = @p1.velocity
       p2v = @p2.velocity
-      @avg_velocity.set_to((p1v.x + p2v.x) / 2, (p1v.y + p2v.y) / 2)
+      @avg_velocity.set_to((p1v.x + p2v.x) / 2.0, (p1v.y + p2v.y) / 2.0)
     end
 
     def init
@@ -60,14 +60,14 @@ module Pongo
       if @p1.fixed? and @p2.fixed?
         0
       else
-        1 / self.mass
+        1.0 / self.mass
       end
     end
 
-    def fixed
+    def fixed?
       @parent.fixed?
     end
-    alias fixed? fixed
+    alias fixed fixed?
 
     # called only on collision
     def update_position
@@ -127,7 +127,7 @@ module Pongo
     def closest_param_point(c)
       ab = @p2.curr - @p1.curr
       t = (ab.dot(c - @p1.curr)) / (ab.dot(ab))
-      MathUtil.clamp(t, 0, 1)
+      MathUtil.clamp(t, 0.0, 1.0)
     end
 
     # returns a contact location on this SCP expressed as a parametric value in [0,1]
@@ -219,12 +219,12 @@ module Pongo
       b = d1.dot(d2)
       denom = a * e - b * b
 
-      s = denom != 0.0 ? MathUtil.clamp((b * f - c * e) / denom, 0, 1) : 0.5
+      s = denom != 0.0 ? MathUtil.clamp((b * f - c * e) / denom, 0.0, 1.0) : 0.5
       t = (b * s + f) / e
 
       t, s = t < 0 \
-        ? [0, MathUtil.clamp(-c / a, 0, 1)] \
-        : [1, MathUtil.clamp((b - c) / a, 0, 1)]
+        ? [0.0, MathUtil.clamp(-c / a, 0.0, 1.0)] \
+        : [1.0, MathUtil.clamp((b - c) / a, 0.0, 1.0)]
 
       c1 = pp1 + (d1 * s)
       c2 = pp2 + (d2 * t)

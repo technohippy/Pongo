@@ -19,22 +19,22 @@ class Body < Pongo::Composite
     @bot.visible = false
 
     # outer constraints
-    tr = SpringConstraint.new(@top, @rgt, 1)
+    tr = SpringConstraint.new(@top, @rgt, :stiffness => 1)
     tr.visible = false
-    rb = SpringConstraint.new(@rgt, @bot, 1)
+    rb = SpringConstraint.new(@rgt, @bot, :stiffness => 1)
     rb.visible = false
-    bl = SpringConstraint.new(@bot, @lft, 1)
+    bl = SpringConstraint.new(@bot, @lft, :stiffness => 1)
     bl.visible = false
-    lt = SpringConstraint.new(@lft, @top, 1)
+    lt = SpringConstraint.new(@lft, @top, :stiffness => 1)
     lt.visible = false
 
     # inner constrainst
-    ct = SpringConstraint.new(@lft, center, 1)
+    ct = SpringConstraint.new(@lft, center, :stiffness => 1)
     ct.visible = false
-    cr = SpringConstraint.new(@rgt, center, 1)
-    cb = SpringConstraint.new(@bot, center, 1)
+    cr = SpringConstraint.new(@rgt, center, :stiffness => 1)
+    cb = SpringConstraint.new(@bot, center, :stiffness => 1)
     cb.visible = false
-    cl = SpringConstraint.new(@lft, center, 1)
+    cl = SpringConstraint.new(@lft, center, :stiffness => 1)
 
     @ctr.collidable = false
     @top.collidable = false

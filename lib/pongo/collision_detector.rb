@@ -26,6 +26,7 @@ module Pongo
       # default test for two non-multisampled particles
       def norm_vs_norm(obj_a, obj_b)
         obj_a.samp.copy(obj_a.curr)
+
         obj_b.samp.copy(obj_b.curr)
         if test_types(obj_a, obj_b)
           CollisionResolver.resolve(@cpa, @cpb, @coll_normal, @coll_depth)
@@ -133,6 +134,10 @@ module Pongo
         # first go through the axes of the rectangle
         2.times do |i|
           box_axis = rect_a.axes[i]
+APEngine.log(">>>>>>>>>>> box_axis: #{box_axis.inspect}")
+if box_axis.x.nan?
+  raise ArgumentError.new(box_axis.inspect)
+end
           depth = test_intervals(rect_a.projection(box_axis), cir_a.projection(box_axis))
           return false if depth == 0
 

@@ -31,22 +31,22 @@ class Leg < Pongo::Composite
     @ph = CircleParticle.new(px, py, 3)
 
     # top triangle constraints
-    cab = SpringConstraint.new(@pa, @pb, 1)
-    cbc = SpringConstraint.new(@pb, @pc, 1)
-    cca = SpringConstraint.new(@pc, @pa, 1)
+    cab = SpringConstraint.new(@pa, @pb, :stiffness => 1)
+    cbc = SpringConstraint.new(@pb, @pc, :stiffness => 1)
+    cca = SpringConstraint.new(@pc, @pa, :stiffness => 1)
 
     # middle leg constraints
-    ccd = SpringConstraint.new(@pc, @pd, 1)
-    cae = SpringConstraint.new(@pa, @pe, 1)
+    ccd = SpringConstraint.new(@pc, @pd, :stiffness => 1)
+    cae = SpringConstraint.new(@pa, @pe, :stiffness => 1)
 
     # bottom leg constraints
-    cde = SpringConstraint.new(@pd, @pe, 1)
-    cdf = SpringConstraint.new(@pd, @pf, 1)
-    cef = SpringConstraint.new(@pe, @pf, 1)
+    cde = SpringConstraint.new(@pd, @pe, :stiffness => 1)
+    cdf = SpringConstraint.new(@pd, @pf, :stiffness => 1)
+    cef = SpringConstraint.new(@pe, @pf, :stiffness => 1)
 
     # cam constraints
-    cbh = SpringConstraint.new(@pb, @ph, 1)
-    ceh = SpringConstraint.new(@pe, @ph, 1)
+    cbh = SpringConstraint.new(@pb, @ph, :stiffness => 1)
+    ceh = SpringConstraint.new(@pe, @ph, :stiffness => 1)
 
     add_particle(@pa)
     add_particle(@pb)

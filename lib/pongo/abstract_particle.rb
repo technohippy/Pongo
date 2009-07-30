@@ -186,7 +186,7 @@ module Pongo
     # WheelParticle
     def resolve_collision(mtd, vel, n, d, order, particle)
       test_particle_events(particle)
-      return if @fixed or (not @solid) or (not particle.solid)
+      return if fixed? or (not solid?) or (not particle.solid?)
       @curr.copy(@samp)
       @curr.plus!(mtd)
       self.velocity = vel

@@ -26,28 +26,28 @@ class Robot < Pongo::Group
     @motor = Motor.new(@body.center, 8 * scale, 0x336699)
 
     # connect the body to the legs
-    conn_la = SpringConstraint.new(@body.left,  @leg_la.fix, 1)
-    conn_ra = SpringConstraint.new(@body.right, @leg_ra.fix, 1)
-    conn_lb = SpringConstraint.new(@body.left,  @leg_lb.fix, 1)
-    conn_rb = SpringConstraint.new(@body.right, @leg_rb.fix, 1)
-    conn_lc = SpringConstraint.new(@body.left,  @leg_lc.fix, 1)
-    conn_rc = SpringConstraint.new(@body.right, @leg_rc.fix, 1)
+    conn_la = SpringConstraint.new(@body.left,  @leg_la.fix, :stiffness => 1)
+    conn_ra = SpringConstraint.new(@body.right, @leg_ra.fix, :stiffness => 1)
+    conn_lb = SpringConstraint.new(@body.left,  @leg_lb.fix, :stiffness => 1)
+    conn_rb = SpringConstraint.new(@body.right, @leg_rb.fix, :stiffness => 1)
+    conn_lc = SpringConstraint.new(@body.left,  @leg_lc.fix, :stiffness => 1)
+    conn_rc = SpringConstraint.new(@body.right, @leg_rc.fix, :stiffness => 1)
 
     # connect to legs to the motor
     @leg_la.cam.position = @motor.rim_a.position
     @leg_ra.cam.position = @motor.rim_a.position
-    conn_laa = SpringConstraint.new(@leg_la.cam, @motor.rim_a, 1)
-    conn_raa = SpringConstraint.new(@leg_ra.cam, @motor.rim_a, 1)
+    conn_laa = SpringConstraint.new(@leg_la.cam, @motor.rim_a, :stiffness => 1)
+    conn_raa = SpringConstraint.new(@leg_ra.cam, @motor.rim_a, :stiffness => 1)
 
     @leg_lb.cam.position = @motor.rim_b.position
     @leg_rb.cam.position = @motor.rim_b.position
-    conn_lbb = SpringConstraint.new(@leg_lb.cam, @motor.rim_b, 1)
-    conn_rbb = SpringConstraint.new(@leg_rb.cam, @motor.rim_b, 1)
+    conn_lbb = SpringConstraint.new(@leg_lb.cam, @motor.rim_b, :stiffness => 1)
+    conn_rbb = SpringConstraint.new(@leg_rb.cam, @motor.rim_b, :stiffness => 1)
 
     @leg_lc.cam.position = @motor.rim_c.position
     @leg_rc.cam.position = @motor.rim_c.position
-    conn_lcc = SpringConstraint.new(@leg_lc.cam, @motor.rim_c, 1)
-    conn_rcc = SpringConstraint.new(@leg_rc.cam, @motor.rim_c, 1)
+    conn_lcc = SpringConstraint.new(@leg_lc.cam, @motor.rim_c, :stiffness => 1)
+    conn_rcc = SpringConstraint.new(@leg_rc.cam, @motor.rim_c, :stiffness => 1)
 
     # add to the engine
     add_composite(@leg_la)
