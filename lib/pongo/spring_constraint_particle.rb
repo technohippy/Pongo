@@ -13,8 +13,8 @@ module Pongo
       @p1 = p1
       @p2 = p2
 
-      lamda = Vector.new
-      avg_velocity = Vector.new
+      self.lamda = Vector.new
+      self.avg_velocity = Vector.new
 
       @parent = p
       @rect_scale = rect_scale
@@ -27,7 +27,7 @@ module Pongo
     end
 
     def mass
-      (@p1.mass * @p2.mass) / 2
+      (@p1.mass * @p2.mass) / 2.0
     end
 
     def elasticity
@@ -45,15 +45,15 @@ module Pongo
     end
 
     def init
-      throw NotImplementedError
+      #throw NotImplementedError
     end
 
     def draw
-      throw NotImplementedError
+      #throw NotImplementedError
     end
 
     def init_display
-      throw NotImplementedError
+      #throw NotImplementedError
     end
 
     def inv_mass
@@ -76,7 +76,7 @@ module Pongo
         ? @parent.curr_length * @rect_scale \
         : @parent.rest_length * @rect_scale
       self.height = @rect_height
-      self.redian = @parent.radian
+      self.radian = @parent.radian
     end
 
     def resolve_collision(mtd, vel, n, d, o, p)
@@ -120,116 +120,116 @@ module Pongo
           corr_particle.velocity = vel
         end
       end
+    end
 
-      # given point c, returns a parameterized location on this SCP. Note
-      # this is just treating the SCP as if it were a line segment (ab).
-      def closest_param_point(c)
-        ab = @p2.curr - @p1.curr
-        t = (ab.dot(c - @p1.curr)) / (ab.dot(ab))
-        MathUtil.clamp(t, 0, 1)
-      end
+    # given point c, returns a parameterized location on this SCP. Note
+    # this is just treating the SCP as if it were a line segment (ab).
+    def closest_param_point(c)
+      ab = @p2.curr - @p1.curr
+      t = (ab.dot(c - @p1.curr)) / (ab.dot(ab))
+      MathUtil.clamp(t, 0, 1)
+    end
 
-      # returns a contact location on this SCP expressed as a parametric value in [0,1]
-      def get_contact_point_param(p)
-        if p.is_a?(CircleParticle)
-          closest_param_point(p.curr)
-        elsif p.is_a?(RectangleParticle)
-          # go through the sides of the colliding rectangle as line segments
-          shortestIndex = 0
-          params_list = []
-          shortest_distance = MathUtil::POSITIVE_INFINITY
-          4.times do |i|
-            set_corners(p, i)
+    # returns a contact location on this SCP expressed as a parametric value in [0,1]
+    def get_contact_point_param(p)
+      if p.is_a?(CircleParticle)
+        closest_param_point(p.curr)
+      elsif p.is_a?(RectangleParticle)
+        # go through the sides of the colliding rectangle as line segments
+        shortest_index = 0
+        params_list = []
+        shortest_distance = Numeric::POSITIVE_INFINITY
+        4.times do |i|
+          set_corners(p, i)
 
-            # check for closest points on SCP to side of rectangle
-            d = closest_pt_segment_segment
-            if d < short_distance
-              shortest_distance = d
-              shortest_index = i
-              param_list[i] = @s
-            end
-            param_list[shortest_index]
+          # check for closest points on SCP to side of rectangle
+          d = closest_pt_segment_segment
+          if d < shortest_distance
+            shortest_distance = d
+            shortest_index = i
+            params_list[i] = @s
           end
+          params_list[shortest_index]
         end
       end
-      alias contact_point_param get_contact_point_param
+    end
+    alias contact_point_param get_contact_point_param
 
-      def set_corners(r, i)
-        rx = r.curr.x
-        ry = r.curr.y
+    def set_corners(r, i)
+      rx = r.curr.x
+      ry = r.curr.y
 
-        axes = r.axes
-        extents = r.extents
+      axes = r.axes
+      extents = r.extents
 
-        ae0_x = axes[0].x * extents[0]
-        ae0_y = axes[0].y * extents[0]
-        ae1_x = axes[1].x * extents[1]
-        ae1_y = axes[1].y * extents[1]
+      ae0_x = axes[0].x * extents[0]
+      ae0_y = axes[0].y * extents[0]
+      ae1_x = axes[1].x * extents[1]
+      ae1_y = axes[1].y * extents[1]
 
-        emx = ae0_x - ae1_x
-        emy = ae0_y - ae1_y
-        epx = ae0_x + ae1_x
-        epy = ae0_y + ae1_y
+      emx = ae0_x - ae1_x
+      emy = ae0_y - ae1_y
+      epx = ae0_x + ae1_x
+      epy = ae0_y + ae1_y
 
-        case i
-        when 0
-          # 0 and 1
-          @rca.x = rx - epx;
-          @rca.y = ry - epy;
-          @rcb.x = rx + emx;
-          @rcb.y = ry + emy;
-        when 1
-          # 1 and 2
-          @rca.x = rx + emx;
-          @rca.y = ry + emy;
-          @rcb.x = rx + epx;
-          @rcb.y = ry + epy;
-        when 2
-          # 2 and 3
-          @rca.x = rx + epx;
-          @rca.y = ry + epy;
-          @rcb.x = rx - emx;
-          @rcb.y = ry - emy;
-        when 3
-          # 3 and 0
-          @rca.x = rx - emx;
-          @rca.y = ry - emy;
-          @rcb.x = rx - epx;
-          @rcb.y = ry - epy;
-        end
+      case i
+      when 0
+        # 0 and 1
+        @rca.x = rx - epx;
+        @rca.y = ry - epy;
+        @rcb.x = rx + emx;
+        @rcb.y = ry + emy;
+      when 1
+        # 1 and 2
+        @rca.x = rx + emx;
+        @rca.y = ry + emy;
+        @rcb.x = rx + epx;
+        @rcb.y = ry + epy;
+      when 2
+        # 2 and 3
+        @rca.x = rx + epx;
+        @rca.y = ry + epy;
+        @rcb.x = rx - emx;
+        @rcb.y = ry - emy;
+      when 3
+        # 3 and 0
+        @rca.x = rx - emx;
+        @rca.y = ry - emy;
+        @rcb.x = rx - epx;
+        @rcb.y = ry - epy;
       end
+    end
 
-      # pp1-pq1 will be the SCP line segment on which we need parameterized s. 
-      def closest_pt_segment_segment
-        pp1 = @p1.curr
-        pq1 = @p2.curr
-        pp2 = @rca
-        pq2 = @rcb
+    # pp1-pq1 will be the SCP line segment on which we need parameterized s. 
+    def closest_pt_segment_segment
+      pp1 = @p1.curr
+      pq1 = @p2.curr
+      pp2 = @rca
+      pq2 = @rcb
 
-        d1 = pq1 - pp1
-        d2 = pq2 - pp2
-        r = pp1 - pp2
+      d1 = pq1 - pp1
+      d2 = pq2 - pp2
+      r = pp1 - pp2
 
-        a = d1.dot(d1)
-        e = d2.dot(d2)
-        f = d2.dot(r)
+      a = d1.dot(d1)
+      e = d2.dot(d2)
+      f = d2.dot(r)
 
-        c = d1.dot(r)
-        b = d1.dot(d2)
-        denom = a * e - b * b
+      c = d1.dot(r)
+      b = d1.dot(d2)
+      denom = a * e - b * b
 
-        s = denom != 0.0 ? MathUtil.clamp((b * f - c * e) / denom, 0, 1) : 0.5
-        t = (b * s + f) / e
+      s = denom != 0.0 ? MathUtil.clamp((b * f - c * e) / denom, 0, 1) : 0.5
+      t = (b * s + f) / e
 
-        t, s = t < 0 \
-          ? [0, MathUtil.clamp(-c / a, 0, 1)] \
-          : [1, MathUtil.clamp((b - c) / a, 0, 1)]
+      t, s = t < 0 \
+        ? [0, MathUtil.clamp(-c / a, 0, 1)] \
+        : [1, MathUtil.clamp((b - c) / a, 0, 1)]
 
-        c1 = pp1 + (d1 * s)
-        c2 = pp2 + (d2 * t)
-        c1mc2 = c1 - c2
-        c1mc2.dot(c1mc2)
-      end
+      c1 = pp1 + (d1 * s)
+      c2 = pp2 + (d2 * t)
+      c1mc2 = c1 - c2
+      c1mc2.dot(c1mc2)
     end
   end
 end
