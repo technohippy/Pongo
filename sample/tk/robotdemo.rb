@@ -85,7 +85,7 @@ TkTimer.start(10) do |timer|
     APEngine.step
     APEngine.draw
   rescue
-    APEngine.log("#{$!.message}\n#{$!.backtrace.join("\n")}")
+    APEngine.log($!)
   end
 end
 Tk.mainloop
