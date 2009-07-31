@@ -52,12 +52,16 @@ module Pongo
       end
 
       def draw_spring(item)
-        if item.user_data[:shape]
-          item.user_data[:shape].coords(item.p1.px, 
-            item.p1.py, item.p2.px, item.p2.py)
+        if item.collidable?
+          draw_rectangle(item.scp)
         else
-          item.user_data[:shape] =TkcLine.new(@canvas, item.p1.px, 
-            item.p1.py, item.p2.px, item.p2.py)
+          if item.user_data[:shape]
+            item.user_data[:shape].coords(item.p1.px, 
+              item.p1.py, item.p2.px, item.p2.py)
+          else
+            item.user_data[:shape] =TkcLine.new(@canvas, item.p1.px, 
+              item.p1.py, item.p2.px, item.p2.py)
+          end
         end
       end
     end
