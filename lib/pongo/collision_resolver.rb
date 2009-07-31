@@ -1,4 +1,4 @@
-require 'pongo/common/math_util'
+require 'pongo/util/math_util'
 
 module Pongo
   class CollisionResolver

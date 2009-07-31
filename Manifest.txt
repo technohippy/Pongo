@@ -10,10 +10,10 @@ lib/pongo/collision.rb
 lib/pongo/collision_detector.rb
 lib/pongo/collision_event.rb
 lib/pongo/collision_resolver.rb
-lib/pongo/common/interval.rb
-lib/pongo/common/math_util.rb
-lib/pongo/common/numeric_ext.rb
-lib/pongo/common/vector.rb
+lib/pongo/util/interval.rb
+lib/pongo/util/math_util.rb
+lib/pongo/util/numeric_ext.rb
+lib/pongo/util/vector.rb
 lib/pongo/composite.rb
 lib/pongo/group.rb
 lib/pongo/iforce.rb

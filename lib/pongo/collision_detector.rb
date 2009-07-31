@@ -1,4 +1,4 @@
-require 'pongo/common/numeric_ext'
+require 'pongo/util/numeric_ext'
 module Pongo
   class CollisionDetector
     class <<self

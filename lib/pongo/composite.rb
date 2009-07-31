@@ -1,5 +1,5 @@
 require 'pongo/abstract_collection'
-require 'pongo/common/numeric_ext'
+require 'pongo/util/numeric_ext'
 
 module Pongo
   # The Composite class can contain Particles, and Constraints. Composites can be added

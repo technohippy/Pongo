@@ -1,6 +1,6 @@
 require 'pongo/abstract_constraint'
 require 'pongo/spring_constraint_particle'
-require 'pongo/common/math_util'
+require 'pongo/util/math_util'
 
 module Pongo
   class SpringConstraint < AbstractConstraint

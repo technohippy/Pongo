@@ -1,7 +1,7 @@
 require 'pongo/circle_particle'
 require 'pongo/rectangle_particle'
-require 'pongo/common/math_util'
-require 'pongo/common/vector'
+require 'pongo/util/math_util'
+require 'pongo/util/vector'
 
 module Pongo
   class SpringConstraintParticle < RectangleParticle

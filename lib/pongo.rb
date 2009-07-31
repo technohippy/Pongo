@@ -21,10 +21,10 @@ require 'pongo/spring_constraint_particle'
 require 'pongo/vector_force'
 require 'pongo/wheel_particle'
 
-require 'pongo/common/interval'
-require 'pongo/common/math_util'
-require 'pongo/common/numeric_ext'
-require 'pongo/common/vector'
+require 'pongo/util/interval'
+require 'pongo/util/math_util'
+require 'pongo/util/numeric_ext'
+require 'pongo/util/vector'
 
 module Pongo
   VERSION = '0.1.0'
