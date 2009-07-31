@@ -95,6 +95,7 @@ module Pongo
       end
 
       def log(message, level=:info)
+        message = message.message + "\n" + message.backtrace.join("\n") if message.is_a?(Error)
         @logger.send(level, message) if @logger
       end
     end

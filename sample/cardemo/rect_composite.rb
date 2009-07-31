@@ -15,13 +15,9 @@ class RectComposite < Pongo::Composite
     rad = 4
 
     @cp_a = CircleParticle.new(ctr.x - rw/2, ctr.y - rh/2, rad, :fixed => true)
-@cp_a.user_data[:name] = '@cp_a'
     cp_b = CircleParticle.new(ctr.x + rw/2, ctr.y - rh/2, rad, :fixed => true)
-cp_b.user_data[:name] = 'cp_b'
     @cp_c = CircleParticle.new(ctr.x + rw/2, ctr.y + rh/2, rad, :fixed => true)
-@cp_c.user_data[:name] = '@cp_c'
     cp_d = CircleParticle.new(ctr.x - rw/2, ctr.y + rh/2, rad, :fixed => true)
-cp_d.user_data[:name] = 'cp_d'
 
     @cp_a.always_redraw = true
     cp_b.always_redraw = true

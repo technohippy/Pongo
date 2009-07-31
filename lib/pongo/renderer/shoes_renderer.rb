@@ -39,8 +39,12 @@ module Pongo
       end
 
       def draw_spring(item)
-        item.user_data[:shape].remove if item.user_data[:shape]
-        item.user_data[:shape] = @shoes.line(item.p1.px, item.p1.py, item.p2.px, item.p2.py)
+        if item.collidable?
+          draw_rectangle(item.scp)
+        else
+          item.user_data[:shape].remove if item.user_data[:shape]
+          item.user_data[:shape] = @shoes.line(item.p1.px, item.p1.py, item.p2.px, item.p2.py)
+        end
       end
     end
   end

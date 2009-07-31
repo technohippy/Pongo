@@ -45,13 +45,19 @@ Shoes.app :width => 650, :height => 350 do
   car.add_collidable_list(surfaces, bridge, rotator, swing_door, capsule)
   capsule.add_collidable_list(surfaces, bridge, rotator, swing_door)
 
-  animate(1) do |anim|
+  flow :top => 310, :left => 420 do
+    button('left') {car.speed = -0.5}
+    button('stop') {car.speed = 0}
+    button('right') {car.speed = 0.5}
+  end
+
+  animate(24) do |anim|
     begin
       APEngine.step
       APEngine.draw
       rotator.rotate_by_radian(0.02)
     rescue
-      APEngine.log($!.message + "\n" + $!.backtrace.join("\n"))
+      APEngine.log($!)
       raise $!
     end
   end

@@ -15,37 +15,31 @@ class Bridge < Pongo::Group
     particle_size = 4
 
     bridge_paa = CircleParticle.new(bx, by, particle_size, :fixed => true)
-bridge_paa.user_data[:name] = 'bridge_paa'
     add_particle(bridge_paa)
 
     bx += bsize
     by += yslope
     bridge_pa = CircleParticle.new(bx, by, particle_size)
-bridge_pa.user_data[:name] = 'bridge_pa'
     add_particle(bridge_pa)
 
     bx += bsize
     by += yslope
     bridge_pb = CircleParticle.new(bx, by, particle_size)
-bridge_pb.user_data[:name] = 'bridge_pb'
     add_particle(bridge_pb)
 
     bx += bsize
     by += yslope
     bridge_pc = CircleParticle.new(bx, by, particle_size)
-bridge_pc.user_data[:name] = 'bridge_pc'
     add_particle(bridge_pc)
 
     bx += bsize
     by += yslope
     bridge_pd = CircleParticle.new(bx, by, particle_size)
-bridge_pd.user_data[:name] = 'bridge_pd'
     add_particle(bridge_pd)
 
     bx += bsize
     by += yslope
     bridge_pdd = CircleParticle.new(bx, by, particle_size, :fixed => true)
-bridge_pdd.user_data[:name] = 'bridge_pdd'
     add_particle(bridge_pdd)
 
     bridge_conn_a = SpringConstraint.new(bridge_paa, bridge_pa,

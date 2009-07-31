@@ -21,6 +21,7 @@ see also: http://www.cove.org/ape/index.htm
 
 * ruby sample/tk/robotdemo.rb
 * shoes sample/shoes/robotdemo.rb
+* shoes sample/shoes/cardemo.rb
 
 == SYNOPSIS:
 

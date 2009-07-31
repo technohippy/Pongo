@@ -33,7 +33,7 @@ module Pongo
       vn_b.plus!(cb.vt)
 
       pa.resolve_collision(mtd_a, vn_a, normal, depth, -1, pb)
-      pb.resolve_collision(mtd_b, vn_b, normal, depth,  1, pb)
+      pb.resolve_collision(mtd_b, vn_b, normal, depth,  1, pa)
     end
   end
 end

@@ -16,7 +16,6 @@ class Rotator < Pongo::Group
     add_composite(@rect_composite)
 
     circ_a = CircleParticle.new(@ctr.x, @ctr.y, 5)
-circ_a.user_data[:name] = 'circ_a'
     add_particle(circ_a)
 
     rect_a = RectangleParticle.new(555, 160, 10, 10, :mass => 3)

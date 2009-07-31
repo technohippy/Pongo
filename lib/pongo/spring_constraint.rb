@@ -74,7 +74,7 @@ module Pongo
 
     def set_collidable(b, rect_height, rect_scale, scale_to_length)
       if @collidable = b
-        @scp = SpringConstraintParticle.new(@p2, @p2, self, rect_height, rect_scale, scale_to_length)
+        @scp = SpringConstraintParticle.new(@p1, @p2, self, rect_height, rect_scale, scale_to_length)
       else
         @scp = nil
       end

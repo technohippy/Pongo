@@ -24,11 +24,9 @@ class Surfaces < Pongo::Group
     add_particle(ramp_left2)
 
     ramp_circle = CircleParticle.new(175, 190, 60, :fixed => true)
-ramp_circle.user_data[:name] = 'ramp_circle'
     add_particle(ramp_circle)
 
     floor_bump = CircleParticle.new(600, 660, 400, :fixed => true)
-floor_bump.user_data[:name] = 'floor_bump'
     add_particle(floor_bump)
 
     bounce_pad = RectangleParticle.new(35, 370, 40, 60, :fixed => true, :elasticity => 4)
