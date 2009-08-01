@@ -46,9 +46,9 @@ Shoes.app :width => 650, :height => 350 do
   capsule.add_collidable_list(surfaces, bridge, rotator, swing_door)
 
   flow :top => 310, :left => 420 do
-    button('left') {car.speed = -0.5}
+    button('left') {car.speed = -0.3}
     button('stop') {car.speed = 0}
-    button('right') {car.speed = 0.5}
+    button('right') {car.speed = 0.3}
   end
 
   animate(24) do |anim|

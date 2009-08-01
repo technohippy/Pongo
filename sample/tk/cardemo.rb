@@ -50,13 +50,13 @@ capsule.add_collidable_list(surfaces, bridge, rotator, swing_door)
 
 frame = TkFrame.new.pack
 left_button = TkButton.new(
-  :parent => frame, :text => 'left', :command => lambda{car.speed = -0.5}
+  :parent => frame, :text => 'left', :command => lambda{car.speed = -0.3}
 ).pack(:side => :left)
 stop_button = TkButton.new(
   :parent => frame, :text => 'stop', :command => lambda{car.speed = 0}
 ).pack(:side => :left)
 right_button = TkButton.new(
-  :parent => frame, :text => 'right', :command => lambda{car.speed = 0.5}
+  :parent => frame, :text => 'right', :command => lambda{car.speed = 0.3}
 ).pack
 
 TkTimer.start(10) do |timer|
