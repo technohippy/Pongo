@@ -20,7 +20,8 @@ module Pongo
             item.px - item.radius, 
             item.py - item.radius,
             item.px + item.radius, 
-            item.py + item.radius
+            item.py + item.radius,
+            :fill => 'black'
           )
         end
       end
@@ -37,17 +38,20 @@ module Pongo
         p3 = Vector.new(x2, y2).rotate!(item.radian) + c
         p4 = Vector.new(x2, y1).rotate!(item.radian) + c
         if item.user_data[:shape]
-          item.user_data[:shape][0].coords(p1.x, p1.y, p2.x, p2.y)
-          item.user_data[:shape][1].coords(p2.x, p2.y, p3.x, p3.y)
-          item.user_data[:shape][2].coords(p3.x, p3.y, p4.x, p4.y)
-          item.user_data[:shape][3].coords(p4.x, p4.y, p1.x, p1.y)
+          item.user_data[:shape].coords(
+            p1.x, p1.y,
+            p2.x, p2.y,
+            p3.x, p3.y,
+            p4.x, p4.y
+          )
         else
-          item.user_data[:shape] = [
-            TkcLine.new(@canvas, p1.x, p1.y, p2.x, p2.y),
-            TkcLine.new(@canvas, p2.x, p2.y, p3.x, p3.y),
-            TkcLine.new(@canvas, p3.x, p3.y, p4.x, p4.y),
-            TkcLine.new(@canvas, p4.x, p4.y, p1.x, p1.y)
-          ]
+          item.user_data[:shape] = TkcPolygon.new(@canvas,
+            p1.x, p1.y,
+            p2.x, p2.y,
+            p3.x, p3.y,
+            p4.x, p4.y,
+            :fill => 'black'
+          )
         end
       end
 
