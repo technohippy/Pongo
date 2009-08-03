@@ -2,10 +2,13 @@ module Pongo
   # The main engine class. 
   class PhysicsEngine
     attr_accessor :forces, :groups, :tile_step, :damping, :container, 
-      :constraint_cycles, :constraint_collision_cycles, :logger
+      :constraint_cycles, :constraint_collision_cycles, :renderer, :logger
 
-    alias renderer container
-    alias renderer= container=
+    def container=(c)
+      @container = c
+      @renderer = c.renderer
+      @logger = c.logger
+    end
 
     # Initializes the engine. You must call this method prior to adding any 
     # particles or constraints.
@@ -25,7 +28,19 @@ module Pongo
     def add_force(force)
       @forces << force
     end
-    alias gravity= add_force
+
+    def gravity=(val)
+      case val
+      when Numeric
+        add_force(VectorForce.new(false, 0, val))
+      when Array
+        add_force(VectorForce.new(false, *val))
+      when VectorForce
+        add_force(val)
+      else
+        raise ArgumentError
+      end
+    end
 
     # Removes a force from the engine.
     def remove_force(force)
@@ -91,6 +106,15 @@ module Pongo
 
     def check_collisions
       @groups.each {|g| g.check_collisions}
+    end
+
+    def <<(item)
+      if @groups.empty?
+        @groups << Group.new(true) 
+        @groups.first.is_parented = true
+        @groups.first.init
+      end
+      @groups.last << item
     end
 
     def log(message, level=:info)
