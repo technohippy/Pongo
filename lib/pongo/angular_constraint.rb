@@ -5,9 +5,10 @@ module Pongo
   class AngularConstraint < SpringConstraint
     attr_accessor :p3, :min_ang, :max_ang, :min_break_ang, :max_break_ang
 
-    def initialize(p1, p2, p3, min_ang, max_ang, min_break_ang=-10, 
-      max_break_ang=10, stiffness=0.5, dependent=false, collidable=false, 
-      rect_height=1, rect_scale=1, scale_to_length=false)
+    def initialize(p1, p2, p3, min_ang, max_ang, options={})
+      options = {:min_break_ang => -10, :max_break_ang => 10, :stiffness => 0.5, 
+        :dependent => false, :collidable => false, :rect_height => 1, :rect_scale => 1, 
+        :scale_to_length => false}.update(options)
 
       super(p2, p2, stiffness, false, dependent, collidable, rect_height, rect_scale, scale_to_length)
 

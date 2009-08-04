@@ -129,5 +129,38 @@ module Pongo
     def valid_composites
       @composites.select{|c| not c.nil?}
     end
+
+    def circle(x, y, radius, options={})
+      cir = CircleParticle.new(x, y, radius, options)
+      cir.always_redraw! if options[:always_redraw]
+      self << cir
+      cir
+    end
+
+    def rectangle(x, y, width, height, options={})
+      rect = RectangleParticle.new(x, y, width, height, options)
+      rect.always_redraw! if options[:always_redraw]
+      self << rect
+      rect
+    end
+
+    def wheel(x, y, radius, options={})
+      wh = WheelParticle.new(x, y, radius, options)
+      wh.always_redraw! if options[:always_redraw]
+      self << wh
+      wh
+    end
+
+    def connect(p1, p2, options={})
+      con = SpringConstraint.new(p1, p2, options)
+      self << con
+      con
+    end
+
+    def brace(p1, p2, p3, min_ang, max_ang, options={})
+      ang = AngularConstraint.new(p1, p2, p3, min_ang, max_ang, options)
+      self << ang
+      ang
+    end
   end
 end

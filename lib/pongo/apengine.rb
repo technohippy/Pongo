@@ -1,3 +1,4 @@
+require 'pongo/group'
 module Pongo
   # The main engine class. 
   class PhysicsEngine
@@ -119,12 +120,32 @@ module Pongo
     end
 
     def <<(item)
-      if @groups.empty?
-        @groups << Group.new(true) 
-        @groups.first.is_parented = true
-        @groups.first.init
+      if item.is_a?(Group)
+        add_group(item)
+      else
+        if @groups.empty?
+          @groups << Group.new(true) 
+          @groups.first.is_parented = true
+          @groups.first.init
+        end
+        @groups.last << item
       end
-      @groups.last << item
+    end
+
+    def create_group(collide_internal=true, &block)
+      @groups << Group.new(collide_internal)
+      block.call(@groups.last) if block
+      @groups.last
+    end
+
+    def next_frame(options={})
+      options[:before].call if options[:before]
+      step
+      draw
+      options[:after].call if options[:after]
+    rescue
+      log($!)
+      raise $!
     end
 
     def log(message, level=:info)
