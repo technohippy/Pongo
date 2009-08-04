@@ -12,13 +12,23 @@ module Pongo
 
     # Initializes the engine. You must call this method prior to adding any 
     # particles or constraints.
-    def setup(dt=0.25)
-      @time_step = dt * dt
+    def setup(options={}) #dt=0.25)
+      options = {
+        :dt => 0.25, :damping => 1, :constraint_cycles => 0, 
+        :constraint_collision_cycles => 1
+      }.update(options.is_a?(Numeric) ? {:dt => options} : options)
+
+      @time_step = options[:dt] * options[:dt]
       @groups = []
       @forces = []
-      self.damping = 1
-      self.constraint_cycles = 0
-      self.constraint_collision_cycles = 1
+      self.damping = options[:damping]
+      self.constraint_cycles = options[:constraint_cycles]
+      self.constraint_collision_cycles = options[:constraint_collision_cycles] 
+
+      self.container = options[:container] if options[:container]
+      self.renderer = options[:renderer] if options[:renderer]
+      self.logger = options[:logger] if options[:logger]
+      self.gravity = options[:gravity] if options[:gravity]
     end
     alias init setup
 
