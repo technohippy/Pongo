@@ -3,7 +3,7 @@ require 'pongo/spring_constraint_particle'
 module Pongo
   class CollisionEvent
     COLLIDE = :collide
-    FIRST_COLLIDE = :firstCollide
+    FIRST_COLLIDE = :first_collide
 
     attr_accessor :event_type, :colliding_item
 

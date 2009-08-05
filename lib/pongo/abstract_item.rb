@@ -8,7 +8,7 @@ module Pongo
       @solid = true
       @visible = true
       @always_repaint = false
-      @events = Hash.new {Array.new}
+      @events = Hash.new
       @user_data = {}
     end
 
@@ -41,15 +41,15 @@ module Pongo
     alias paint draw
 
     def has_event_listener(event_type)
-      not @events[event_type].empty?
+      @events[event_type]
     end
 
     def add_event_listener(event_type, callable=nil, &block)
-      @events[event_type] << (callable || block)
+      (@events[event_type] ||= []) << (callable || block)
     end
 
     def dispatch_event(event)
-      @events[event.type].each do |listener|
+      (@events[event.type] || []).each do |listener|
         listener.call(event)
       end
     end
