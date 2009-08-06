@@ -5,8 +5,7 @@ class Wall < Pongo::Group
 
   def initialize
     super
-    rectangle(-25, 100, 50, 500, :fixed => true)
-    rectangle(735, 100, 50, 500, :fixed => true)
-    #self.visible = false
+    rectangle(-25, 100, 50, 500, :fixed => true).visible = false
+    rectangle(735, 100, 50, 500, :fixed => true).visible = false
   end
 end
