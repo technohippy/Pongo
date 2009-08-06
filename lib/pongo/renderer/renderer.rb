@@ -31,6 +31,9 @@ module Pongo
           draw_wheel(item)
         when SpringConstraint
           draw_spring(item)
+        when AbstractCollection
+          item.particles.each {|p| p.draw if p.always_redraw? or not p.fixed?}
+          item.constraints.each {|c| c.draw if c.always_redraw? or not c.fixed?}
         else
           raise UnknownItemError.new(item.class.name)
         end
@@ -41,11 +44,17 @@ module Pongo
       def draw_spring(item); end
 
       def with(options, &block)
+        @shoes.nostroke if options[:nostroke]
+        @shoes.stroke(options[:stroke]) if options[:stroke]
+        @shoes.fill(options[:fill]) if options[:fill]
         @shoes.transform(options[:transform]) if options[:transform]
         @shoes.rotate(options[:rotate]) if options[:rotate]
         block.call(@shoes)
         @shoes.rotate(-options[:rotate]) if options[:rotate]
         @shoes.transform(:corner) if options[:transform]
+        @shoes.fill(@shoes.black) if options[:fill]
+        @shoes.stroke(@shoes.black) if options[:stroke]
+        @shoes.stroke(@shoes.black) if options[:nostroke]
       end
     end
   end

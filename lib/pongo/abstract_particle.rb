@@ -194,11 +194,11 @@ module Pongo
 
     def test_particle_events(p)
       if has_event_listener(CollisionEvent::COLLIDE)
-        dispatch_event(CollisionEvent.new(CollisionEvent::COLLIDE, false, false, p))
+        dispatch_event(CollisionEvent.new(CollisionEvent::COLLIDE, p))
       end
       if has_event_listener(CollisionEvent::FIRST_COLLIDE) and not @first_collision
         @first_collision = true
-        dispatch_event(CollisionEvent.new(CollisionEvent::FIRST_COLLIDE, false, false, p))
+        dispatch_event(CollisionEvent.new(CollisionEvent::FIRST_COLLIDE, p))
       end
     end
 

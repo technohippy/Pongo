@@ -2,10 +2,12 @@ require 'pongo/group'
 class Car < Pongo::Group
   include Pongo
   attr_accessor :wheel_a, :wheel_b
-  def initialize
+
+  def initialize(renderer)
     super
-    @wheel_a = wheel(140, 10, 14, :mass => 2)
-    @wheel_b = wheel(200, 10, 14, :mass => 2)
+    @renderer = renderer
+    @wheel_a = wheel(140, 200, 14, :mass => 2)
+    @wheel_b = wheel(200, 200, 14, :mass => 2)
     connect(@wheel_a, @wheel_b, :collidable => true, :rect_height => 8)
   end
 

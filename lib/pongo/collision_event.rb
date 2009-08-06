@@ -5,9 +5,9 @@ module Pongo
     COLLIDE = :collide
     FIRST_COLLIDE = :first_collide
 
-    attr_accessor :event_type, :colliding_item
+    attr_accessor :type, :colliding_item
 
-    def initialize(type, bubbles=false, cancelable=false, colliding_item=nil)
+    def initialize(type, colliding_item=nil)
       @type = type
       @colliding_item = colliding_item
     end

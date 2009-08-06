@@ -62,6 +62,11 @@ see also: http://www.cove.org/ape/index.htm
 
 * sudo gem install pongo
 
+== IMAGES:
+
+* http://www.flickr.com/photos/24557420@N05/3366850475/
+* http://www.aa.alles.or.jp/~palette/icon/icon.html
+
 == LICENSE:
 
 (The MIT License)

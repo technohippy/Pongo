@@ -52,16 +52,6 @@ module Pongo
       @traction = 1 - t
     end
 
-=begin
-    def draw
-      raise NotImplementedError
-    end
-
-    def init
-      raise NotImplementedError
-    end
-=end
-
     def radian
       @orientation.set_to(rp.curr)
       Math.atan2(@orientation.y, @orientation.x) + Math::PI

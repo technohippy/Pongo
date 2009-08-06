@@ -1,8 +1,11 @@
+require 'pongo/abstract_item'
+
 module Pongo
-  class AbstractCollection
+  class AbstractCollection < AbstractItem
     attr_accessor :sprite, :particles, :constraints, :is_parented
 
     def initialize
+      super
       self.is_parented = false
       self.particles = []
       self.constraints = []
@@ -45,14 +48,22 @@ module Pongo
     end
 
     def draw
-      particles.each {|p| p.draw if p.always_redraw? or not p.fixed?}
-      constraints.each {|c| c.draw if c.always_redraw? or not c.fixed?}
+      if renderer
+        renderer.draw(self)
+      else
+        particles.each {|p| p.draw if p.always_redraw? or not p.fixed?}
+        constraints.each {|c| c.draw if c.always_redraw? or not c.fixed?}
+      end
     end
     alias paint draw
 
     def cleanup
-      particles.each {|p| p.cleanup}
-      constraints.each {|c| c.cleanup}
+      if renderer
+        renderer.cleanup(self)
+      else
+        particles.each {|p| p.cleanup}
+        constraints.each {|c| c.cleanup}
+      end
     end
 
     def all
