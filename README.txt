@@ -26,31 +26,20 @@ see also: http://www.cove.org/ape/index.htm
 == SYNOPSIS:
 
   require 'pongo'
-  require 'pongo/renderer/shoes_renderer'
-  require 'pongo/logger/shoes_logger'
+  require 'pongo/container/shoes_container'
 
   include Pongo
+
   Shoes.app :width => 500, :height => 350 do
-    APEngine.renderer = Renderer::ShoesRenderer.new(self)
-    APEngine.logger = Logger::ShoesLogger.new(self)
-    APEngine.setup
-    APEngine.add_force VectorForce.new(false, 0, 2)
+    APEngine.setup :gravity => 2, :container => Container::ShoesContainer.new(self)
 
-    default_group = Group.new
-    default_group.collide_internal = true
-
-    ball = CircleParticle.new(245, 100, 10)
-    default_group.add_particle(ball)
-
-    ground = RectangleParticle.new(250, 250, 300, 50, 0, true)
-    ground.always_redraw!
-    default_group.add_particle(ground)
-
-    APEngine.add_group(default_group)
+    APEngine.create_group do |g|
+      g.circle(245, 100, 10)
+      g.rectangle(250, 250, 300, 50, :fixed => true)
+    end
 
     animate(60) do |anim|
-      APEngine.step
-      APEngine.draw
+      APEngine.next_frame
     end
   end
 
@@ -60,7 +49,7 @@ see also: http://www.cove.org/ape/index.htm
 
 == INSTALL:
 
-* sudo gem install pongo
+* sudo gem install technohippy-Pongo
 
 == IMAGES:
 
