@@ -14,6 +14,8 @@ Ruby port of APE (Actionscript Physics Engine)
 * SpringConstraints
 * Grouping
 * Collision
+* Ruby/Tk Renderer
+* Shoes2 Renderer ( http://shoooes.net/ )
 
 see also: http://www.cove.org/ape/index.htm
 

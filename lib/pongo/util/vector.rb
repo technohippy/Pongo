@@ -129,5 +129,13 @@ module Pongo
       ]
       self
     end
+
+    def radian
+      Math.atan(@y.to_f / @x)
+    end
+
+    def angle
+      radian * 180.0 / Math::PI
+    end
   end
 end
