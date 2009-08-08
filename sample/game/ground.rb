@@ -8,11 +8,14 @@ class Ground < Pongo::Group
     super()
     @renderer = renderer
     @units = []
-    unit_width = 80
-    unit_height = 50
+    grand_base = 300
+    unit_interval = 80
+    unit_width = 100
+    unit_height = 100
+    lean_range = 0.3
     10.times do |i|
-      @units << rectangle(unit_width * i, 290 + rand(10), unit_width, unit_height, 
-        :fixed => true, :elasticity => 0.8, :rotation => rand * 0.1 - 0.05)
+      @units << rectangle(unit_interval * i, grand_base + rand(30), unit_width, unit_height, 
+        :fixed => true, :elasticity => 0.8, :rotation => rand * lean_range * 2 - lean_range)
     end
   end
 
@@ -23,7 +26,7 @@ class Ground < Pongo::Group
       renderer.with(
         :transform => :center, 
         :rotate => -unit.angle,
-        :fill => File.dirname(__FILE__) + '/assets/rock.png',
+        :fill => File.dirname(__FILE__) + '/assets/ground.png',
         :nostroke => true
       ) do |shoes|
         unit.user_data[:shape] = shoes.rect(
